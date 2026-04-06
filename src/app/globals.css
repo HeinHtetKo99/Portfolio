@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  --background: #07080a;
+  --foreground: #ececf1;
+  --surface: #0c0e13;
+  --border: color-mix(in oklab, var(--foreground) 16%, transparent);
+  --muted: color-mix(in oklab, var(--foreground) 10%, transparent);
+  --muted-foreground: color-mix(in oklab, var(--foreground) 68%, transparent);
+  --accent: #7c3aed;
+  --accent-2: #06b6d4;
+  --shadow-card: 0 24px 80px rgba(0, 0, 0, 0.45);
+  --shadow-card-hover: 0 30px 100px rgba(0, 0, 0, 0.55);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --background: #fbfcff;
+  --foreground: #0b1220;
+  --surface: #f3f6ff;
+  --border: color-mix(in oklab, var(--foreground) 22%, transparent);
+  --muted: color-mix(in oklab, var(--foreground) 8%, transparent);
+  --muted-foreground: color-mix(in oklab, var(--foreground) 70%, transparent);
+  --accent: #6d28d9;
+  --accent-2: #0891b2;
+  --shadow-card: 0 16px 50px rgba(2, 6, 23, 0.1);
+  --shadow-card-hover: 0 22px 70px rgba(2, 6, 23, 0.14);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+:root[data-theme="light"] .theme-icon-moon {
+  display: none;
+}
+
+:root:not([data-theme="light"]) .theme-icon-sun {
+  display: none;
+}
+
+.theme-icon-sun,
+.theme-icon-moon {
+  display: inline-flex;
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes footer-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.footer-caret {
+  color: color-mix(in oklab, var(--accent) 70%, var(--foreground));
+  animation: footer-caret-blink 1s step-end infinite;
+}
+
+.footer-typing {
+  background-image: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--foreground) 86%, transparent),
+    var(--accent),
+    var(--accent-2)
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+:root[data-theme="light"] .footer-typing {
+  background-image: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--foreground) 90%, transparent),
+    color-mix(in oklab, var(--accent) 90%, white 10%),
+    color-mix(in oklab, var(--accent-2) 86%, white 14%)
+  );
+}

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0c0e13"/>
+      <stop offset="1" stop-color="#07080a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="20%" cy="15%" r="70%">
+      <stop offset="0" stop-color="#7c3aed" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#06b6d4" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" rx="48" fill="url(#g)"/>
+  <rect width="1600" height="1000" rx="48" fill="url(#glow)"/>
+  <rect x="120" y="140" width="1360" height="720" rx="32" fill="#ffffff" opacity="0.06" stroke="#ececf1" stroke-opacity="0.18" stroke-width="2"/>
+  <text x="160" y="240" fill="#ececf1" opacity="0.75" font-size="52" font-family="ui-sans-serif, system-ui, -apple-system">
+    Certificate Placeholder
+  </text>
+  <text x="160" y="310" fill="#ececf1" opacity="0.45" font-size="28" font-family="ui-sans-serif, system-ui, -apple-system">
+    Replace this file with your real certificate photo(s) in /public/certificates/
+  </text>
+</svg>
+
