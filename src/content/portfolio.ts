@@ -96,7 +96,7 @@ export const portfolio = {
   ] satisfies PortfolioProject[],
   links: {
     email: "heinhtetko69@gmail.com",
-    linkedin: "https://www.linkedin.com/in/hein-htet-ko/",
+    linkedin: "https://www.linkedin.com/in/hein-htet-ko-997a03148/",
     github: "https://github.com/HeinHtetKo99",
     resume: "/resume.pdf",
   },

@@ -4,6 +4,10 @@ A personal portfolio built with Next.js, React, TypeScript, and Tailwind CSS.
 
 This project showcases my profile, technical skills, selected projects, certificates, and contact links in a fast, modern, and responsive single-page experience with section-based routes.
 
+## Live Demo
+
+- [https://hein-htet-ko.vercel.app/](https://hein-htet-ko.vercel.app/)
+
 ## About This Project
 
 - Name: Hein Htet Ko
