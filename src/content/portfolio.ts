@@ -106,6 +106,18 @@ export const portfolio = {
       imageSrc: "/certificates/[FRONTEND DEVELOPER COURSE] Certificate (1).png",
     },
     {
+      title: "Fullstack Developer Course",
+      imageSrc: "/certificates/[FULLSTACK DEVELOPER COURSE] Certificate.png",
+    },
+    {
+      title: "Laravel Framework Course",
+      imageSrc: "/certificates/[LARAVEL FRAMEWORK COURSE] Certificate.png",
+    },
+    {
+      title: "OOP, DBMS & Framework Building Course",
+      imageSrc: "/certificates/[OOP, DBMS & FRAMEWORK BUILDING COURSE] Certificate.png",
+    },
+    {
       title: "React + Firebase",
       imageSrc: "/certificates/React+Firebase.png",
     },
