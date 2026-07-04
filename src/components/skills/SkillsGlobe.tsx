@@ -13,9 +13,12 @@ const PRIORITY_SKILLS: SkillName[] = [
   "React",
   "Next.js",
   "Vercel",
+  "Node.js",
+  "Express.js",
   "MongoDB",
   "MySQL",
   "Firebase",
+  "Supabase",
   "Laravel",
   "JavaScript",
   "CSS",
@@ -150,6 +153,8 @@ function drawWireframe(
   rCss: number,
   depthCss: number,
   stroke: string,
+  alphaFront: number,
+  alphaBack: number,
 ) {
   const rect = canvas.getBoundingClientRect();
   const dpr = canvas.width / Math.max(1, rect.width);
@@ -180,7 +185,7 @@ function drawWireframe(
   const meridians = 22;
   const parallels = 10;
 
-  ctx.lineWidth = 0.9 * dpr;
+  ctx.lineWidth = 1.1 * dpr;
   ctx.save();
   ctx.beginPath();
   ctx.arc(cx, cy, r, 0, Math.PI * 2);
@@ -192,7 +197,7 @@ function drawWireframe(
       const a = pts[i]!;
       const b = pts[i + 1]!;
       const zMid = (a.z + b.z) / 2;
-      ctx.globalAlpha = zMid >= 0 ? 0.16 : 0.06;
+      ctx.globalAlpha = zMid >= 0 ? alphaFront : alphaBack;
       ctx.beginPath();
       ctx.moveTo(cx + a.x, cy + a.y);
       ctx.lineTo(cx + b.x, cy + b.y);
@@ -222,27 +227,46 @@ function drawWireframe(
 }
 
 const SKILL_ACCENT: Record<SkillName, { icon: string; bg: string; border: string }> = {
-  HTML: { icon: "text-orange-500", bg: "bg-orange-500/12", border: "border-orange-500/22" },
-  CSS: { icon: "text-sky-400", bg: "bg-sky-400/12", border: "border-sky-400/22" },
+  HTML: { icon: "text-orange-600", bg: "bg-orange-500/15", border: "border-orange-500/30" },
+  CSS: { icon: "text-sky-600", bg: "bg-sky-500/15", border: "border-sky-500/30" },
   JavaScript: {
-    icon: "text-yellow-300",
-    bg: "bg-yellow-300/10",
-    border: "border-yellow-300/20",
+    icon: "text-yellow-600",
+    bg: "bg-yellow-500/15",
+    border: "border-yellow-500/30",
   },
-  React: { icon: "text-cyan-300", bg: "bg-cyan-300/10", border: "border-cyan-300/20" },
-  "Next.js": { icon: "text-zinc-100", bg: "bg-zinc-100/10", border: "border-zinc-100/18" },
-  Vercel: { icon: "text-black", bg: "bg-white", border: "border-white/90" },
-  jQuery: { icon: "text-blue-400", bg: "bg-blue-400/10", border: "border-blue-400/20" },
-  Laravel: { icon: "text-red-400", bg: "bg-red-400/10", border: "border-red-400/20" },
-  PHP: { icon: "text-indigo-300", bg: "bg-indigo-300/10", border: "border-indigo-300/20" },
-  MySQL: { icon: "text-sky-500", bg: "bg-sky-500/10", border: "border-sky-500/20" },
+  React: { icon: "text-cyan-600", bg: "bg-cyan-500/15", border: "border-cyan-500/30" },
+  "Next.js": {
+    icon: "text-foreground",
+    bg: "bg-foreground/8",
+    border: "border-foreground/20",
+  },
+  Vercel: {
+    icon: "text-background",
+    bg: "bg-foreground",
+    border: "border-foreground/90",
+  },
+  jQuery: { icon: "text-blue-600", bg: "bg-blue-500/15", border: "border-blue-500/30" },
+  Laravel: { icon: "text-red-600", bg: "bg-red-500/15", border: "border-red-500/30" },
+  PHP: { icon: "text-indigo-600", bg: "bg-indigo-500/15", border: "border-indigo-500/30" },
+  "Node.js": { icon: "text-green-600", bg: "bg-green-500/15", border: "border-green-500/30" },
+  "Express.js": {
+    icon: "text-foreground",
+    bg: "bg-foreground/8",
+    border: "border-foreground/20",
+  },
+  MySQL: { icon: "text-sky-700", bg: "bg-sky-500/15", border: "border-sky-500/30" },
   MongoDB: {
-    icon: "text-emerald-400",
-    bg: "bg-emerald-400/10",
-    border: "border-emerald-400/20",
+    icon: "text-emerald-600",
+    bg: "bg-emerald-500/15",
+    border: "border-emerald-500/30",
   },
-  Firebase: { icon: "text-amber-300", bg: "bg-amber-300/10", border: "border-amber-300/20" },
-  Railway: { icon: "text-purple-300", bg: "bg-purple-300/10", border: "border-purple-300/20" },
+  Firebase: { icon: "text-amber-600", bg: "bg-amber-500/15", border: "border-amber-500/30" },
+  Supabase: {
+    icon: "text-emerald-600",
+    bg: "bg-emerald-500/15",
+    border: "border-emerald-500/30",
+  },
+  Railway: { icon: "text-purple-600", bg: "bg-purple-500/15", border: "border-purple-500/30" },
 };
 
 export type SkillsGlobeProps = {
@@ -266,7 +290,7 @@ export function SkillsGlobe({
   const [phase, setPhase] = useState(0);
   const hoveredRef = useRef<SkillName | null>(null);
 
-  const displaySkills = useMemo(() => pickDisplaySkills(skills, 10), [skills]);
+  const displaySkills = useMemo(() => pickDisplaySkills(skills, 13), [skills]);
   const safeIndex = displaySkills.length ? activeIndex % displaySkills.length : 0;
   const activeSkill = displaySkills[safeIndex] ?? null;
 
@@ -285,6 +309,8 @@ export function SkillsGlobe({
     lastT: 0,
     restoreTouchAction: "",
     wireColor: "",
+    wireAlphaFront: 0.16,
+    wireAlphaBack: 0.06,
     wireColorAt: 0,
   });
 
@@ -431,13 +457,30 @@ export function SkillsGlobe({
       }
 
       if (canvasRef.current) {
-        if (!s.wireColor || t - s.wireColorAt > 1000) {
-          s.wireColor =
-            getComputedStyle(document.documentElement).getPropertyValue("--accent-2").trim() ||
-            "#06b6d4";
+        if (!s.wireColor || t - s.wireColorAt > 400) {
+          const root = document.documentElement;
+          const isLight = root.dataset.theme === "light";
+          const styles = getComputedStyle(root);
+          if (isLight) {
+            s.wireColor = styles.getPropertyValue("--foreground").trim() || "#0b1220";
+            s.wireAlphaFront = 0.28;
+            s.wireAlphaBack = 0.12;
+          } else {
+            s.wireColor = styles.getPropertyValue("--accent-2").trim() || "#06b6d4";
+            s.wireAlphaFront = 0.18;
+            s.wireAlphaBack = 0.07;
+          }
           s.wireColorAt = t;
         }
-        drawWireframe(canvasRef.current, s.orientation, r, depth, s.wireColor);
+        drawWireframe(
+          canvasRef.current,
+          s.orientation,
+          r,
+          depth,
+          s.wireColor,
+          s.wireAlphaFront,
+          s.wireAlphaBack,
+        );
       }
 
       for (let i = 0; i < points.length; i += 1) {
@@ -541,8 +584,8 @@ export function SkillsGlobe({
               hoveredRef.current = null;
             }}
             className={cn(
-              "relative grid place-items-center rounded-full border border-border bg-surface/10",
-              "shadow-[0_18px_70px_color-mix(in_oklab,var(--foreground)_10%,transparent)]",
+              "relative grid place-items-center rounded-full border border-border bg-surface",
+              "shadow-[0_10px_36px_color-mix(in_oklab,var(--foreground)_14%,transparent)]",
               "h-14 w-14 sm:h-16 sm:w-16",
               "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/80 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               "motion-reduce:transition-none",
@@ -550,7 +593,7 @@ export function SkillsGlobe({
           >
             <div
               className={cn(
-                "grid h-12 w-12 place-items-center rounded-full border bg-surface/15 sm:h-14 sm:w-14",
+                "grid h-12 w-12 place-items-center rounded-full border bg-background sm:h-14 sm:w-14",
                 SKILL_ACCENT[skill].bg,
                 SKILL_ACCENT[skill].border,
                 SKILL_ACCENT[skill].icon,

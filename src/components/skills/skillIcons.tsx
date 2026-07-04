@@ -10,9 +10,12 @@ export type SkillName =
   | "jQuery"
   | "Laravel"
   | "PHP"
+  | "Node.js"
+  | "Express.js"
   | "MySQL"
   | "MongoDB"
   | "Firebase"
+  | "Supabase"
   | "Railway";
 
 export function SkillIcon({
@@ -114,6 +117,18 @@ export function SkillIcon({
     );
   }
 
+  if (name === "Supabase") {
+    return (
+      <svg viewBox="0 0 24 24" className={cn("h-6 w-6", className)} aria-hidden="true">
+        <path
+          className={s}
+          d="M13 3 6 14h5l-1 7 8-11h-5z"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
   if (name === "Laravel") {
     return (
       <svg viewBox="0 0 24 24" className={cn("h-6 w-6", className)} aria-hidden="true">
@@ -133,6 +148,33 @@ export function SkillIcon({
         <path className={s} d="M5 9h7a3 3 0 0 1 0 6H5V9z" strokeLinejoin="round" />
         <path className={s} d="M14 9h5v6h-5" strokeLinejoin="round" />
         <path className={s} d="M7 12h3" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (name === "Node.js") {
+    return (
+      <svg viewBox="0 0 24 24" className={cn("h-6 w-6", className)} aria-hidden="true">
+        <path
+          className={s}
+          d="M12 3.5 19 7.5v9l-7 4-7-4v-9l7-4z"
+          strokeLinejoin="round"
+        />
+        <path className={s} d="M12 8v8" strokeLinecap="round" />
+      </svg>
+    );
+  }
+
+  if (name === "Express.js") {
+    return (
+      <svg viewBox="0 0 24 24" className={cn("h-6 w-6", className)} aria-hidden="true">
+        <path
+          className={s}
+          d="M7 6h10M7 12h8M7 18h10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path className={s} d="M7 6v12" strokeLinecap="round" />
       </svg>
     );
   }

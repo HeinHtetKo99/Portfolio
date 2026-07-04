@@ -37,9 +37,12 @@ export const portfolio = {
     "jQuery",
     "Laravel",
     "PHP",
+    "Node.js",
+    "Express.js",
     "MySQL",
     "MongoDB",
     "Firebase",
+    "Supabase",
     "Railway",
   ],
   skillGroups: [
@@ -49,11 +52,11 @@ export const portfolio = {
     },
     {
       name: "Backend",
-      skills: ["PHP", "Laravel"],
+      skills: ["PHP", "Laravel", "Node.js", "Express.js"],
     },
     {
       name: "Database",
-      skills: ["MySQL", "MongoDB", "Firebase"],
+      skills: ["MySQL", "MongoDB", "Firebase", "Supabase"],
     },
     {
       name: "Tools & Deploy",
