@@ -136,5 +136,9 @@ export const portfolio = {
       title: "Git & GitHub",
       imageSrc: "/certificates/git&github.png",
     },
+    {
+      title: "Internship Certificate",
+      imageSrc: "/certificates/Internship Certificte - Hein Htet Ko.jpg",
+    },
   ] satisfies Certificate[],
 } as const;
